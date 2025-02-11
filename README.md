@@ -1,38 +1,37 @@
 param (
     [string]$subscriptionId,
     [string]$vmResourceGroup,
-    [string]$diskName,
-    [string]$snapshotResourceGroup
+    [string]$vmName  # VM Name is passed instead of disk name
 )
 
-# Connect to Azure (only needed in Automation)
-Write-Output "Connecting to Azure..."
+# Define the static resource group for storing snapshots
+$staticSnapshotResourceGroup = "My-Snapshot-RG"  # <-- Change this to your actual RG name
+
+# Authenticate using Managed Identity (for Azure Automation)
 Connect-AzAccount -Identity
 
-# Select the correct subscription
-Write-Output "Setting subscription: $subscriptionId"
+# Set the correct subscription
 Set-AzContext -SubscriptionId $subscriptionId
 
-# Get the disk details
-Write-Output "Fetching disk details for: $diskName in $vmResourceGroup"
-$disk = Get-AzDisk -ResourceGroupName $vmResourceGroup -DiskName $diskName
-if (-not $disk) {
-    Write-Error "Disk not found: $diskName"
-    exit
-}
+# Retrieve VM details
+Write-Output "Fetching details for VM: $vmName"
+$vm = Get-AzVM -ResourceGroupName $vmResourceGroup -Name $vmName
 
-$diskId = $disk.Id
-$diskLocation = $disk.Location  # Get disk's region
+# Extract OS disk name
+$diskName = $vm.StorageProfile.OsDisk.Name
+Write-Output "Detected OS Disk Name: $diskName"
+
+# Get the disk details
+$disk = Get-AzDisk -ResourceGroupName $vmResourceGroup -DiskName $diskName
+$diskLocation = $disk.Location
 
 # Generate a unique snapshot name
 $snapshotName = "snapshot-" + (Get-Date -Format "yyyyMMdd-HHmmss")
-Write-Output "Snapshot Name: $snapshotName"
 
 # Define snapshot configuration
-$snapshotConfig = New-AzSnapshotConfig -Location $diskLocation -CreateOption Copy -SourceUri $diskId -SkuName Standard_LRS
+$snapshotConfig = New-AzSnapshotConfig -Location $diskLocation -CreateOption Copy -SourceUri $disk.Id -SkuName Standard_LRS
 
-# Create the snapshot
-Write-Output "Creating snapshot in resource group: $snapshotResourceGroup"
-New-AzSnapshot -ResourceGroupName $snapshotResourceGroup -SnapshotName $snapshotName -Snapshot $snapshotConfig
+# Create the snapshot in the static resource group
+New-AzSnapshot -ResourceGroupName $staticSnapshotResourceGroup -SnapshotName $snapshotName -Snapshot $snapshotConfig
 
-Write-Output "Snapshot '$snapshotName' created successfully in '$snapshotResourceGroup'."
+Write-Output "Snapshot '$snapshotName' created successfully in '$staticSnapshotResourceGroup'."
