@@ -35,3 +35,10 @@ foreach ($rule in $inboundRules) {
 
 # Save the updated NSG rules
 Set-AzNetworkSecurityGroup -NetworkSecurityGroup $nsg
+
+
+
+
+
+
+Set-AzNetworkSecurityGroup: Line | 37 | Set-AzNetworkSecurityGroup -NetworkSecurityGroup $nsg | ~~~~ | Cannot bind argument to parameter 'NetworkSecurityGroup' because it is null.
