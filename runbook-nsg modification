@@ -1,0 +1,37 @@
+param(
+    [Parameter(Mandatory=$true)]
+    [string]$SubscriptionId,
+    
+    [Parameter(Mandatory=$true)]
+    [string]$ResourceGroupName,
+
+    [Parameter(Mandatory=$true)]
+    [string]$VMName
+)
+
+# Log in to Azure
+Connect-AzAccount
+
+# Set the current subscription context
+Set-AzContext -SubscriptionId $SubscriptionId
+
+# Get the VM
+$vm = Get-AzVM -ResourceGroupName $ResourceGroupName -Name $VMName
+
+# Get the network interfaces attached to the VM
+$nic = Get-AzNetworkInterface -ResourceGroupName $ResourceGroupName | Where-Object { $_.VirtualMachine.Id -eq $vm.Id }
+
+# Get the NSG associated with the NIC
+$nsg = Get-AzNetworkSecurityGroup -ResourceGroupName $ResourceGroupName | Where-Object { $_.NetworkInterfaces -contains $nic.Name }
+
+# Update inbound rules to Deny all traffic
+$inboundRules = $nsg.SecurityRules | Where-Object { $_.Direction -eq 'Inbound' }
+
+foreach ($rule in $inboundRules) {
+    $rule.Access = 'Deny'
+    $rule.Action = 'Deny'
+    $rule.Priority = 500 # Set an appropriate priority for the Deny rule
+}
+
+# Save the updated NSG rules
+Set-AzNetworkSecurityGroup -NetworkSecurityGroup $nsg
