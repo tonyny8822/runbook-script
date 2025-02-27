@@ -1,0 +1,212 @@
+{
+    "type": "object",
+    "properties": {
+        "value": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "etag": {
+                        "type": "string"
+                    },
+                    "tags": {
+                        "type": "object",
+                        "properties": {
+                            "application": {
+                                "type": "string"
+                            },
+                            "cost_center": {
+                                "type": "string"
+                            },
+                            "created_on_date": {
+                                "type": "string"
+                            },
+                            "department": {
+                                "type": "string"
+                            },
+                            "environment": {
+                                "type": "string"
+                            },
+                            "created_by": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "type": "object",
+                        "properties": {
+                            "provisioningState": {
+                                "type": "string"
+                            },
+                            "resourceGuid": {
+                                "type": "string"
+                            },
+                            "ipConfigurations": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "etag": {
+                                            "type": "string"
+                                        },
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "properties": {
+                                            "type": "object",
+                                            "properties": {
+                                                "provisioningState": {
+                                                    "type": "string"
+                                                },
+                                                "privateIPAddress": {
+                                                    "type": "string"
+                                                },
+                                                "privateIPAllocationMethod": {
+                                                    "type": "string"
+                                                },
+                                                "publicIPAddress": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string"
+                                                        },
+                                                        "properties": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "deleteOption": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "subnet": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "primary": {
+                                                    "type": "boolean"
+                                                },
+                                                "privateIPAddressVersion": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "name",
+                                        "id",
+                                        "etag",
+                                        "type",
+                                        "properties"
+                                    ]
+                                }
+                            },
+                            "dnsSettings": {
+                                "type": "object",
+                                "properties": {
+                                    "dnsServers": {
+                                        "type": "array"
+                                    },
+                                    "appliedDnsServers": {
+                                        "type": "array"
+                                    },
+                                    "internalDomainNameSuffix": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "macAddress": {
+                                "type": "string"
+                            },
+                            "enableAcceleratedNetworking": {
+                                "type": "boolean"
+                            },
+                            "vnetEncryptionSupported": {
+                                "type": "boolean"
+                            },
+                            "enableIPForwarding": {
+                                "type": "boolean"
+                            },
+                            "disableTcpStateTracking": {
+                                "type": "boolean"
+                            },
+                            "networkSecurityGroup": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "primary": {
+                                "type": "boolean"
+                            },
+                            "virtualMachine": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "hostedWorkloads": {
+                                "type": "array"
+                            },
+                            "tapConfigurations": {
+                                "type": "array"
+                            },
+                            "nicType": {
+                                "type": "string"
+                            },
+                            "allowPort25Out": {
+                                "type": "boolean"
+                            },
+                            "auxiliaryMode": {
+                                "type": "string"
+                            },
+                            "auxiliarySku": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "location": {
+                        "type": "string"
+                    },
+                    "kind": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "id",
+                    "etag",
+                    "tags",
+                    "properties",
+                    "type",
+                    "location",
+                    "kind"
+                ]
+            }
+        }
+    }
+}
