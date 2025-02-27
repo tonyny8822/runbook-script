@@ -1,0 +1,16 @@
+{
+    "properties": {
+        "securityRules": [
+            {
+                "name": "Allow-SSH",
+                "properties": {
+                    "priority": 100,
+                    "direction": "Inbound",
+                    "access": "Deny",
+                    "protocol": "Tcp",
+                    "sourcePortRange": "*",
+                    "destinationPortRange": "22",
+                    "sourceAddressPrefix": "*",
+                    "destinationAddressPrefix": "*"
+                }
+            }
