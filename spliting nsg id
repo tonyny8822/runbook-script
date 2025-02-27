@@ -1,0 +1,1 @@
+substring(body('Your_Previous_Action_Name'), add(indexOf(body('Your_Previous_Action_Name'), '"id":"/'), 6), indexOf(body('Your_Previous_Action_Name'), '"', add(indexOf(body('Your_Previous_Action_Name'), '"id":"/'), 6)) - add(indexOf(body('Your_Previous_Action_Name'), '"id":"/'), 6))
