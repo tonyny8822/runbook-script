@@ -2,15 +2,18 @@
     "properties": {
         "securityRules": [
             {
-                "name": "Allow-SSH",
+                "name": "Deny-All-Inbound",
                 "properties": {
-                    "priority": 100,
+                    "priority": 4096,
                     "direction": "Inbound",
                     "access": "Deny",
-                    "protocol": "Tcp",
+                    "protocol": "*",
                     "sourcePortRange": "*",
-                    "destinationPortRange": "22",
+                    "destinationPortRange": "*",
                     "sourceAddressPrefix": "*",
                     "destinationAddressPrefix": "*"
                 }
             }
+        ]
+    }
+}
